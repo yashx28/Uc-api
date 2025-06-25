@@ -141,6 +141,20 @@ app.get('/services', async (req, res) => {
   }
 });
 
+// service route file or main server file
+app.delete('/services/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    await ServiceModel.findByIdAndDelete(id);
+    res.status(200).send({ message: 'Service deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting service:', error);
+    res.status(500).send({ error: 'Failed to delete service' });
+  }
+});
+
+
+
 // ✅ Barbers
 app.post('/addbarber', async (req, res) => {
   const { name, email, image } = req.body;
